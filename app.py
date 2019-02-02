@@ -133,6 +133,11 @@ def editor():
     return render_template("Editor.html", title="editor", number=number,  content=content)
 
 
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+
 @app.route("/save", methods=['GET', 'POST'])
 def save():
     content = request.form.to_dict()
