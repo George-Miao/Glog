@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>{{title}} - Glog</title>
+    <link rel="shortcut icon" href="../static/photo/favcon.png" />
+    <link href="../static/css/default.css?v=106" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div id="outline">
+        <div class="empty"></div>
+        <div id="header">
+            {% include "navbar.html" %}
+        </div>
+        <div id="content">
+            <div id="strict">
+                {% block content %}{% endblock %}
+                
+            </div>
+        </div>
+        <div id="footer">
+            {% include "footer.html" %}
+        </div>
+    </div>
+</body>
+
+</html>
