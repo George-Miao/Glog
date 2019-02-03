@@ -19,7 +19,7 @@ def bid(limit=False):
         cursor.execute("select count(*) from block;")
         a = cursor.fetchone()
         db.commit()
-        if a[0] > 10 and limit == 1:
+        if a[0] > 10 and limit:
             bid = 10
         else:
             bid = a[0]
@@ -27,6 +27,16 @@ def bid(limit=False):
     except:
         db.rollback()
         print("<------Bid Error------>")
+
+
+def uid():
+    try:
+        cursor.execute("select count(*) from user;")
+        a = cursor.fetchone()
+        return a[0]
+    except:
+        db.rollback()
+        print("<------Uid Error------>")
 
 
 def generate(number):
@@ -99,19 +109,38 @@ def delete(bid):
         print("<------Delete Error------>")
 
 
-def username(username):
+def login(username, password):
     try:
         cursor.execute(f'''select user_id from user where username = "{username}" limit 1;''')
         a = cursor.fetchall()
         if a == ():
-            return("empty")
+            return("000")
         else:
-            return(f"user id:{a[0][0]}")
-        cursor.close()
+            a = a[0][0]
+            cursor.execute(f'''select password from user where user_id = {a} limit 1;''')
+            db_password = cursor.fetchone()
+            if db_password[0] == password:
+                return ("001")
+            else:
+                return ("002")
     except:
-        return ("<----Username fetch failed---->")
+        return ("<----login failed---->")
         
 
+def register(username, password):
+    try:
+        cursor.execute(f'''select user_id from user where username = "{username}" limit 1;''')
+        a = cursor.fetchall()
+        if a == ():
+            user_id = uid() + 1
+            cursor.execute(f'''insert into user values('{user_id}', '{username}', '{password}','{datetime.datetime.now()}', '{datetime.datetime.now()}')''')
+            db.commit()
+            return "000"
+        else:
+            return "001"
+    except:
+        return ("<----Register failed---->")
+        
 # 连接数据库
 db = pymysql.connect("localhost", "root", "George219@", "mydb")
 
@@ -146,28 +175,33 @@ def editor():
 
 
 @app.route("/login")
-def login():
+def login_page():
     content = {
         "type" : "Login"
     }
-    return render_template("user_handling/login.html", **content)
+    return render_template("user_handling/login.html", title = "Login",**content)
 
 
 @app.route("/register")
-def Register():
+def Register_page():
     content = {
         "type": "Register"
     }
-    return render_template("user_handling/register.html", **content)
+    return render_template("user_handling/register.html", title = "Register",**content)
 
 
 @app.route("/login_handling", methods = ['GET', 'POST'])
 def login_handling():
-    type = request.form['type']
-    if type == "login":
-        username = request.form['username']
-        return render_template("login.html", number = 2)
+    name, passwd = request.form["username"], request.form["password"]
+    a = login(name, passwd)
+    return a
 
+
+@app.route("/register_handling", methods = ['GET', 'POST'])
+def register_handling():
+    name, passwd = request.form["username"], request.form["password"]
+    a = register(name, passwd)
+    return a
 
 
 @app.route("/save", methods=['GET', 'POST'])
