@@ -90,7 +90,6 @@ def edit(dict):
         print("<------Edit Error------>")
     
 
-
 def delete(bid):
     try:
         cursor.execute(f'''DELETE FROM block where id = {int(bid[1:])};''')
@@ -99,6 +98,19 @@ def delete(bid):
         db.rollback()
         print("<------Delete Error------>")
 
+
+def username(username):
+    try:
+        cursor.execute(f'''select user_id from user where username = "{username}" limit 1;''')
+        a = cursor.fetchall()
+        if a == ():
+            return("empty")
+        else:
+            return(f"user id:{a[0][0]}")
+        cursor.close()
+    except:
+        return ("<----Username fetch failed---->")
+        
 
 # 连接数据库
 db = pymysql.connect("localhost", "root", "George219@", "mydb")
@@ -135,7 +147,27 @@ def editor():
 
 @app.route("/login")
 def login():
-    return render_template("login.html")
+    content = {
+        "type" : "Login"
+    }
+    return render_template("user_handling/login.html", **content)
+
+
+@app.route("/register")
+def Register():
+    content = {
+        "type": "Register"
+    }
+    return render_template("user_handling/register.html", **content)
+
+
+@app.route("/login_handling", methods = ['GET', 'POST'])
+def login_handling():
+    type = request.form['type']
+    if type == "login":
+        username = request.form['username']
+        return render_template("login.html", number = 2)
+
 
 
 @app.route("/save", methods=['GET', 'POST'])
@@ -178,5 +210,5 @@ def e_500(e):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=80)
+    app.run(host="0.0.0.0", port=80, debug = 1)
     cursor.close()
