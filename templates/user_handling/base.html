@@ -45,6 +45,7 @@
                     } else if (ret == "001") {
                         $("#alert_word").text("Login success! Welcome, " + username)
                         $("#alert").css("opacity", "1")
+                        window.setTimeout(function(){location.href='/'},1000);
                     } else if (ret == "002") {
                         $("#alert_word").text("Password is uncorrect")
                         $("#alert").css("opacity", "1")
@@ -87,11 +88,13 @@
                 data: c,
                 success: function (ret) {
                     if (ret == "000") {
-                        $("#alert_word").text("Register success!")
+                        $("#alert_word").text("Register success! Redirecting to login page...")
                         $("#alert").css("opacity", "1")
+                        window.setTimeout(function(){location.href='/login'},1000);
                     } else if (ret == "001") {
                         $("#alert_word").text("Username is already exist!")
                         $("#alert").css("opacity", "1")
+                        
                     }
                 }
             })

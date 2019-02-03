@@ -1,5 +1,6 @@
 from flask import *
-import pymysql, datetime, json
+import pymysql, datetime, json, time
+
 
 app = Flask(__name__)
 
@@ -120,11 +121,13 @@ def login(username, password):
             cursor.execute(f'''select password from user where user_id = {a} limit 1;''')
             db_password = cursor.fetchone()
             if db_password[0] == password:
+                cursor.execute(f'''UPDATE user SET last_login_time = "{datetime.datetime.now()}" where user_id = {a};''')
+                db.commit()
                 return ("001")
             else:
                 return ("002")
     except:
-        return ("<----login failed---->")
+        print ("<----login failed---->")
         
 
 def register(username, password):
@@ -139,7 +142,7 @@ def register(username, password):
         else:
             return "001"
     except:
-        return ("<----Register failed---->")
+        print ("<----Register failed---->")
         
 # 连接数据库
 db = pymysql.connect("localhost", "root", "George219@", "mydb")
@@ -194,13 +197,16 @@ def Register_page():
 def login_handling():
     name, passwd = request.form["username"], request.form["password"]
     a = login(name, passwd)
+    if a == "001":
+        redirect("/")
     return a
-
 
 @app.route("/register_handling", methods = ['GET', 'POST'])
 def register_handling():
     name, passwd = request.form["username"], request.form["password"]
     a = register(name, passwd)
+    if a == "001":
+        redirect("/login")
     return a
 
 
