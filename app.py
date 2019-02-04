@@ -164,7 +164,6 @@ cursor = db.cursor()
 @app.route('/')
 def home():
     username = check_login_status()
-    print(username)
     number = bid(limit=True)
     content = generate(number)
     return render_template('content.html', username = username, number = number, title="Home", content=content)
@@ -172,12 +171,8 @@ def home():
 
 @app.route('/me')
 def me():
-    return render_template('me.html', title="About Me")
-
-
-@app.route("/500")
-def r_500():
-    return render_template("error.html", title="500")
+    username = check_login_status()
+    return render_template('me.html', username = username, title="About Me")
 
 
 @app.route("/editor")
@@ -191,7 +186,7 @@ def editor():
 def login_page():
     username = check_login_status()
     if username != "0":
-        redirect("/")
+        return redirect("/")
     else:
         return render_template("user_handling/login.html", title = "Login")
 
@@ -207,12 +202,13 @@ def Register_page():
 @app.route("/user/<name>")
 def userpage(name):
     username = check_login_status()
-    if username == "0":
-        redirect("/login")
-    elif username == name:
-        return "own_userPage"
+    if username == name:
+        return f"own_userPage. Welcome back, {name}"
     else:
-        return "userpage"
+        if username == "0":
+            return f"userpage. Welcome, guest"
+        else:
+            return f"userpage. Welcome, {username}"
 
 
 @app.route("/login_handling", methods = ['GET', 'POST'])
