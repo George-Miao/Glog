@@ -203,7 +203,7 @@ def Register_page():
 def userpage(name):
     username = check_login_status()
     if username == name:
-        return f"own_userPage. Welcome back, {name}"
+        return render_template("/user_handling/user_page.html")
     else:
         if username == "0":
             return f"userpage. Welcome, guest"
@@ -217,7 +217,7 @@ def login_handling():
     a = login(name, passwd)
     if a == "001":
         a = make_response(a)
-        a.set_cookie('username', name)
+        a.set_cookie('username', name, max_age = 600)
     return a
 
 @app.route("/register_handling", methods = ['GET', 'POST'])
@@ -231,6 +231,7 @@ def register_handling():
 @app.route("/save", methods=['GET', 'POST'])
 def save():
     content = request.form.to_dict()
+    print(content)
     content["edit_time"] = datetime.datetime.now()
     result = edit(content)
     return result
