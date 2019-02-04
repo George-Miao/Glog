@@ -2,8 +2,12 @@
 <div id="navbar">
     <div id="navbar_header"> <a href="/" id="home">Glog</a> </div>
     <div id="navbar_container">
-        <a href="/register" class="nav">Register</a>
-        <a href="/login" class="nav">Login</a>
+        {% if username == "0" %}
+            <a href="/register" class="nav">Register</a>
+            <a href="/login" class="nav">Login</a>
+        {% else %}
+            <a href="/user/{{username}}" class="nav">{{username}}</a>
+        {% endif %}
         <a href="/me" class="nav">About Me</a>
         <a href="/" class="nav">Home</a>
 

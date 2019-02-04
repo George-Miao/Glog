@@ -130,6 +130,14 @@ def login(username, password):
         print ("<----login failed---->")
         
 
+def check_login_status():
+    username = request.cookies.get('username')
+    if username == None:
+        return "0"
+    else:
+        return username
+
+
 def register(username, password):
     try:
         cursor.execute(f'''select user_id from user where username = "{username}" limit 1;''')
@@ -155,9 +163,11 @@ cursor = db.cursor()
 
 @app.route('/')
 def home():
+    username = check_login_status()
+    print(username)
     number = bid(limit=True)
     content = generate(number)
-    return render_template('content.html', number=number, title="Home", content=content)
+    return render_template('content.html', username = username, number = number, title="Home", content=content)
 
 
 @app.route('/me')
@@ -179,10 +189,11 @@ def editor():
 
 @app.route("/login")
 def login_page():
-    content = {
-        "type" : "Login"
-    }
-    return render_template("user_handling/login.html", title = "Login",**content)
+    username = check_login_status()
+    if username != "0":
+        redirect("/")
+    else:
+        return render_template("user_handling/login.html", title = "Login")
 
 
 @app.route("/register")
@@ -193,20 +204,31 @@ def Register_page():
     return render_template("user_handling/register.html", title = "Register",**content)
 
 
+@app.route("/user/<name>")
+def userpage(name):
+    username = check_login_status()
+    if username == "0":
+        redirect("/login")
+    elif username == name:
+        return "own_userPage"
+    else:
+        return "userpage"
+
+
 @app.route("/login_handling", methods = ['GET', 'POST'])
 def login_handling():
     name, passwd = request.form["username"], request.form["password"]
     a = login(name, passwd)
     if a == "001":
-        redirect("/")
+        a = make_response(a)
+        a.set_cookie('username', name)
     return a
 
 @app.route("/register_handling", methods = ['GET', 'POST'])
 def register_handling():
     name, passwd = request.form["username"], request.form["password"]
     a = register(name, passwd)
-    if a == "001":
-        redirect("/login")
+    a = make_response(a)
     return a
 
 
