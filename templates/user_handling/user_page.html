@@ -4,7 +4,7 @@
 <head>
     <title>{{title}} - Glog</title>
     <link rel="shortcut icon" href="../static/photo/favcon.png" />
-    <link href="../../static/css/default.css?v=106" rel="stylesheet" type="text/css">
+    <link href="../../static/css/default.css?v=107" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://use.typekit.net/wnd0asw.css">
 </head>
 <style>
@@ -19,15 +19,17 @@
 
     .line {
         width: 1px;
+        height: 100%;
         position: absolute;
         left:100px;
         background: #ccc;
-        margin: 10px 0;
         flex-grow:1;
     }
-    .comment {
+    .comment_history {
+        margin: 20px;
         height: 100px;
         width: 100%;
+        border-left: 1px solid #555;
     }
     #avatar {
         height: 160px;
@@ -84,11 +86,11 @@
                 </div>
                 <div class = "block" style = "display: flex;">
                     <div class = "line"></div>
-                    <div class = "container" style = "flex-grow:0;">
-                        <div class = "comment">123</div>
-                        <div class = "comment">123</div>
-                        <div class = "comment">123</div>
-                        <div class = "comment">123</div>
+                    <div class = "container" style = "flex-grow:0;width: 100%">
+                        <div class = "comment_history"></div>
+                        <div class = "comment_history"></div>
+                        <div class = "comment_history"></div>
+                        <div class = "comment_history"></div>
                     </div>
                 </div>
                 <!--block end point-->
