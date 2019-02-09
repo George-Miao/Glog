@@ -1,0 +1,24 @@
+{% macro card(id, post_time, edit_time, title, content) %}
+<div class = "block" id = {{id}}>
+    <div class = "article">
+        <div class = "head">
+            <div class = "info">
+                <div class = "topic"><a>{{title}}</a></div>
+                <div><a class = "posttime">于 {{post_time}} 上传{%if post_time != edit_time%}，最后编辑于 {{edit_time}} {%endif%} #{{id}}</a> </div>
+            </div>
+        </div>
+    </div>
+    <div class = "cont">
+        <div class = "word"> {{content|safe}} </div>
+    </div>
+</div>
+{% endmacro %}
+
+{% extends "base.html" %}
+{% block content %}
+    {% for i in range(number) %}
+        {{card(**content[i])}}
+    {% endfor %}
+{% endblock content %}
+
+

@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>{{title}} - Glog</title>
+    <link rel="shortcut icon" href="../static/photo/favcon.png" />
+    <link href="../../static/css/default.css?v=107" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.typekit.net/wnd0asw.css">
+</head>
+<style>
+    a {
+        font-family: futura-pt, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei"， sans-serif;
+    }
+    .user_info {
+        box-sizing: border-box;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .line {
+        width: 1px;
+        height: 100%;
+        position: absolute;
+        left:100px;
+        background: #ccc;
+        flex-grow:1;
+    }
+    .comment_history {
+        margin: 20px;
+        height: 100px;
+        width: 100%;
+        border-left: 1px solid #555;
+    }
+    #avatar {
+        height: 160px;
+        width: 160px;
+        border-radius: 80px;
+    }
+    #word-container {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        padding: 20px;
+        margin-left: 20px;
+    }
+    #userName {
+        font-size: 50px;
+        font-family: futura-pt, sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        color: #555;
+    }
+    #time {
+        font-size: 16px;
+        font-family: futura-pt, sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        color: #555;
+    }
+
+</style>
+
+<body>
+    <div id="outline">
+        <div class="empty"></div>
+        <div id="header">
+        </div>
+        <div id="content">
+            <div id="strict">
+                <!--block start point-->
+                <div class="block" style = "margin-bottom:30px">
+                    <div class="container">
+                        <div class="user_info">
+                            <img src = ../../static/photo/favcon.png id = "avatar">
+                            <div id = "word-container">
+                                <a id = "userName">Admin</a>
+                                <a id = "time">注册于 2019-2-19</a>
+                            </div>
+                            
+                        </div>
+                        <div class="user_comment">
+
+                        </div>
+                    </div>
+                </div>
+                <div class = "block" style = "display: flex;">
+                    <div class = "line"></div>
+                    <div class = "container" style = "flex-grow:0;width: 100%">
+                        <div class = "comment_history"></div>
+                        <div class = "comment_history"></div>
+                        <div class = "comment_history"></div>
+                        <div class = "comment_history"></div>
+                    </div>
+                </div>
+                <!--block end point-->
+            </div>
+        </div>
+        <div id="footer">
+        </div>
+    </div>
+</body>
+
+</html>

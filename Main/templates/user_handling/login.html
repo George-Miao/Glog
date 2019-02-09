@@ -1,0 +1,33 @@
+{% extends "user_handling/base.html" %}
+{% block content %}
+    <div id="content">
+            <div class="block">
+                <input class="form" id="username" type="text" placeholder="Your username" required>
+                <label for="username">Username</label>
+            </div>
+            <div class="block">
+                    <input class="form" id="password" type="password" placeholder="Your password" required onkeypress="EnterPress()">
+                    <label for="username">Password</label>
+                </div>
+            <div id="go" onclick=login()>
+                <a>Go</a>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1024 1024"
+                    id="arrow">
+                    <defs>
+                        <style type="text/css" />
+                        </defs>
+                    <path d="M801.548285 510.271032L301.254151 1010.360574c-18.242732 18.242732-47.73799 18.106338-65.844327-0.306887a47.226511 47.226511 0 0 1 0.272788-66.389904l433.358652-433.154061L235.784908 80.356335A47.192413 47.192413 0 0 1 235.307528 13.966431 46.30585 46.30585 0 0 1 301.151856 13.454952l500.396429 496.81608z" p-id="1092"/>
+                </svg>
+            </div>
+            <div id = "hint">
+                    <a>Or</a><a id = "register" href = "/register">Register</a> 
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1024 1024"
+                    id="register-arrow">
+                    <defs>
+                        <style type="text/css" />
+                        </defs>
+                <path d="M801.548285 510.271032L301.254151 1010.360574c-18.242732 18.242732-47.73799 18.106338-65.844327-0.306887a47.226511 47.226511 0 0 1 0.272788-66.389904l433.358652-433.154061L235.784908 80.356335A47.192413 47.192413 0 0 1 235.307528 13.966431 46.30585 46.30585 0 0 1 301.151856 13.454952l500.396429 496.81608z" p-id="1092"/>
+            </svg>                   
+            </div>
+        </div>
+{% endblock content %}
