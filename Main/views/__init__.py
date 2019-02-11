@@ -1,7 +1,11 @@
 from flask import Blueprint
+from ..database import Database
 
-bp = Blueprint("bp", __name__)
+bp = Blueprint("bp", __name__,)
+db = Database()
+db.connect()
 
-from . import admin
+from . import editor
 from . import home
 from . import user
+from . import error

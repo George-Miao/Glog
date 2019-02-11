@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+    <link href="../static/css/default.css" rel="stylesheet" type="text/css">
+    <div class = "block" style = "height: 80%; width: 70%；">
+        <div class = "main-info">
+            <a class = "main-topic">{{content.title}}</a>
+        </div>
+        <div class = "info">
+            <a class = "info">于 {{post_time}} 上传{%if post_time != edit_time%}，最后编辑于 {{edit_time}} {%endif%} #{{id}}</a>
+        </div>
+        <div>
+            <div class = "cont">
+                <div class = "word"> {{content.content|safe}} </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

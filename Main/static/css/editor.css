@@ -1,0 +1,269 @@
+@font-face {
+    font-family: PingFang;
+    src: url("static/font/PingFang-SC-Regular.ttf")
+}
+
+html,
+body {
+    height: 100%;
+    font-family: futura-pt, "PingFang";
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    min-width: 900px;
+    background: #f4f4f4;
+}
+
+a {
+    text-decoration: none;
+    display: block;
+}
+
+div {
+    padding: 0;
+    margin: 0;
+    position: relative;
+    box-sizing: border-box;
+}
+
+input {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 10px;
+    outline:none;
+}
+
+pre {
+    font-family: Courier;
+    padding: 20px;
+    background: #eee;
+    border-left: 3px solid #666;
+    margin: 0px
+}
+
+.contraction {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fefefe;
+    box-sizing: border-box;
+    width: 29%;
+    height: 100%;
+    box-shadow: 0 0 3px #888;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.history {
+    padding: 17px 30px;
+    height: 100px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.6s ease;
+    cursor: pointer;
+}
+
+.history:hover {
+    background: #ddd;
+    transition: 0.6s ease;
+}
+
+.word {
+    height: 100%;
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.delete-container {
+    height: 80%;
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete {
+    height: 80%;
+    opacity: 0;
+    transition: 0.6s ease;
+}
+
+.delete-container:hover .delete {
+    opacity: 90;
+    transition: 0.6s ease;
+}
+
+.history-container {
+    overflow: scroll;
+    height: auto;
+    width: 100%;
+}
+
+.history-container::-webkit-scrollbar {
+    width: 0px;
+}
+
+.topic {
+    line-height: 30px;
+    width: 100%;
+    height: 50%;
+    font-size: 20px;
+}
+
+.time {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+}
+
+.time a {
+    display: block;
+    color: #777;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 14px
+}
+
+.editor {
+    padding: 20px;
+    background: #fefefe;
+    border-radius: 10px;
+    box-shadow: 0 0 3px #888;
+    height: 100%;
+    overflow: scroll;
+}
+
+.editor::-webkit-scrollbar {
+    width: 0%
+}
+
+#frame {
+    box-sizing: border-box;
+    height: 100%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    margin: 0 10%;
+    padding: 20px 0;
+}
+
+#editor-frame {
+    width: 71%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#return-home {
+    width: 80%;
+    height: 30px;
+    border-radius: 30px;
+    margin: 30px 0 25px 0;
+    padding: 10px;
+    border: 2px solid #ddd;
+    box-shadow: 0 1px 4px #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    font-size: 24px;
+    transition: ease 0.3s;
+}
+
+#new {
+    box-shadow: 0 0 10px #77b5ee;
+    width: 80%;
+    height: 30px;
+    border-radius: 30px;
+    margin: 0 0 25px 0;
+    padding: 10.5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #eee;
+    font-size: 24px;
+    background: linear-gradient(60deg, #1c2e70, #1e4cb5 20%, #3d98f5);
+    cursor: pointer;
+}
+
+#return-home:hover {
+    border: #245bc2 2px solid;
+    color: #245bc2;
+}
+
+#new:hover {
+    background: linear-gradient(60deg, #13245e, #163d97 20%, #3068e0);
+    color: #fff;
+}
+
+#header,
+#container {
+    box-sizing: border-box;
+    height: 50px;
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+#container {
+    box-shadow: 0 0 3px #888;
+    background: #fefefe;
+}
+
+#title {
+    width: 85%;
+    border: none;
+    box-shadow: 0 0 3px #888;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-family: "Montserrat", "PingFang";
+    color: #888;
+}
+
+#title:focus {
+    box-shadow: 0 0 5px #3178fd;
+    border: none;
+}
+
+#button {
+    width: 15%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#button a {
+    background: #fefefe;
+    display: block;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    margin-left: 20px;
+    border-radius: 10px;
+    line-height: 45px;
+    color: #888;
+    text-align: center;
+    box-shadow: 0 0 3px #888;
+    transition: ease 0.3s;
+}
+
+#button a:hover {
+    box-shadow: 0 1px 12px #ccc
+}
