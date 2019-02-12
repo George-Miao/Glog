@@ -2,6 +2,7 @@ import pymysql
 import datetime
 import json
 import time
+import socket
 from flask import request
 
 
@@ -24,6 +25,16 @@ def check_login_status():
             return "0"  #未登录
         else:
             return username
+
+def get_ip():
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(('8.8.8.8', 80))
+        ip = s.getsockname()[0]
+    finally:
+        s.close()
+    return ip
+
 
 
 

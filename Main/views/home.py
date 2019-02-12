@@ -23,6 +23,6 @@ def article(block_id):
     title = block_id
     content = db.generate_content(block_id, is_detailed=True)
     if content == "000": 
-        return redirect
+        return redirect("/")
     else:
         return render_template('article.html', title = title, content = content)

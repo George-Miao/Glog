@@ -53,7 +53,7 @@ class Database(object):
                     return ("002")
         except Exception:
             print("<------Login Error------>")
-    
+
     # Content
     def get_block_id(self, is_limited=False):
         try:
@@ -77,36 +77,38 @@ class Database(object):
             self.db.rollback()
             print("<------Uid Error------>")
 
-    def generate_content(self, number, is_detailed = False):
+    def generate_content(self, number, is_detailed=False):
         content = dict()
         if not is_detailed:
-            try:
-                self.cursor.execute(f"select * from block2 order by id desc limit {number};")
-                results = self.cursor.fetchall()
-                for i in range(number):
-                    content[i] = {
-                        "id": results[i][0],
-                        "title": results[i][1],
-                        "content": results[i][2],
-                        "post_time": ftime(datetime.datetime.now() - results[i][3]),
-                        "edit_time": ftime(datetime.datetime.now() - results[i][4]),
-                    }
-                return content
-            except:
-                print("<------Undetailed Generate Error------>")
+            # try:
+            self.cursor.execute(
+                f"select * from block2 order by id desc limit {number};")
+            results = self.cursor.fetchall()
+            for i in range(number):
+                content[i] = {
+                    "id": results[i][0],
+                    "title": results[i][1],
+                    "content": results[i][2],
+                    "post_time": ftime(datetime.datetime.now() - results[i][3]),
+                    "edit_time": ftime(datetime.datetime.now() - results[i][4]),
+                }
+            return content
+            # except:
+            # print("<------Undetailed Generate Error------>")
         else:
             try:
-                self.cursor.execute(f"select * from block2 where id = {number};")
+                self.cursor.execute(
+                    f"select * from block2 where id = {number};")
                 results = self.cursor.fetchall()
                 if results == ():
-                    return "000"  #Does not exist
+                    return "000"  # Does not exist
                 else:
                     content = {
-                        "id": results[0],
-                        "title": results[1],
-                        "content": results[2],
-                        "post_time": ftime(datetime.datetime.now() - results[3]),
-                        "edit_time": ftime(datetime.datetime.now() - results[4]),
+                        "id": results[0][0],
+                        "title": results[0][1],
+                        "content": results[0][2],
+                        "post_time": ftime(datetime.datetime.now() - results[0][3]),
+                        "edit_time": ftime(datetime.datetime.now() - results[0][4]),
                     }
                     return content
             except:
@@ -130,8 +132,9 @@ class Database(object):
     def create(self, title, content):
         try:
             number = self.get_block_id() + 1
+            print(number)
             self.cursor.execute(
-                f"insert into block2 values('{number}', '{title}', '{content}','{datetime.datetime.now()}', '{datetime.datetime.now()}'');"
+                f"insert into block2 values('{number}', '{title}', '{content}','{datetime.datetime.now()}', '{datetime.datetime.now()}');"
             )
             self.db.commit()
             return number
@@ -140,18 +143,18 @@ class Database(object):
             print("<------Create Error------>")
 
     def edit(self, block):
-        try:
-            if block['id'] == "null":
-                return "2"
-            else:
-                self.cursor.execute(f'''UPDATE block2 SET title = "{block['title']}", 
-                                            content = "{block['content']}", 
-                                            edit_time = "{block['edit_time']}" where id = {int(block['id'][1:])};''')
-                self.db.commit()
-                return "1"
-        except:
-            self.db.rollback()
-            print("<------Edit Error------>")
+        # try:
+        if block['id'] == "null":
+            return "2"
+        else:
+            self.cursor.execute(f'''UPDATE block2 SET title = "{block['title']}", 
+                                                content = "{block['content']}", 
+                                                edit_time = "{block['edit_time']}" where id = {int(block['id'][1:])};''')
+            self.db.commit()
+            return "1"
+        # except:
+        #    self.db.rollback()
+        #    print("<------Edit Error------>")
 
     def delete(self, block_id):
         try:

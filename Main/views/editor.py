@@ -1,5 +1,6 @@
 from . import bp
 from . import db
+from . import ip
 from ..database import Database
 from ..methods import check_login_status
 from flask import redirect
@@ -17,7 +18,7 @@ def admin_page():
     elif username == "admin":
         number = db.get_block_id()
         content = db.generate_content(number)
-        return render_template("editor.html", title="Editor", number=number,  content=content)
+        return render_template("editor.html", ip = ip, title="Editor", number=number,  content=content)
     else:
         return redirect("/")
 

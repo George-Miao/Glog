@@ -36,7 +36,7 @@
                 "content": content,
             }
             $.ajax({
-                url: "http://10.5.3.234/save",
+                url: "http://{{ip}}/save",
                 type: "post",
                 data: c,
                 success: function (ret) {
@@ -51,7 +51,7 @@
         //create
         function create() {
             $.ajax({
-                url: "http://10.5.3.234/create",
+                url: "http://{{ip}}/create",
                 type: "post",
                 data: "",
                 success: function (ret) {
@@ -69,7 +69,7 @@
                 if(con === true){ 
                     var bid = $(this).attr("id")
                     $.ajax({
-                        url: "http://10.5.3.234/delete",
+                        url: "http://{{ip}}/delete",
                         type: "post",
                         data: {
                             "id": bid
@@ -90,7 +90,7 @@
             $(".word").click(function () {
                 var bid = $(this).attr("id")
                 $.ajax({
-                    url: "http://10.5.3.234/fetch",
+                    url: "http://{{ip}}/fetch",
                     type: "post",
                     data: {
                         "id": bid

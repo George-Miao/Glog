@@ -4,6 +4,7 @@ from flask import request
 from flask import make_response
 from . import bp
 from . import db
+from . import ip
 from ..database import Database
 from ..methods import check_login_status
 
@@ -18,7 +19,7 @@ def login_page():
     if username != "0":
         return redirect("/")
     else:
-        return render_template("user_handling/login.html", target = target, title = "Login")
+        return render_template("user_handling/login.html", ip = ip, target = target, title = "Login")
 
 @bp.route("/logout")
 def logout():
@@ -28,7 +29,7 @@ def logout():
 
 @bp.route("/register")
 def register_page():
-    return render_template("user_handling/register.html", title="Register")
+    return render_template("user_handling/register.html", ip = ip, title="Register")
 
 @bp.route("/login_handling", methods = ['GET', 'POST'])
 def login_handling():
@@ -36,7 +37,7 @@ def login_handling():
     response = db.login(name, passwd)
     if response == "001":
         response = make_response(response)
-        response.set_cookie('username', name, max_age=600)
+        response.set_cookie('username', name, max_age=3600)
     return response
 
 @bp.route("/register_handling", methods = ['GET', 'POST'])

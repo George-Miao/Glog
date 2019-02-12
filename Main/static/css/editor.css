@@ -59,7 +59,7 @@ pre {
 }
 
 .history {
-    padding: 17px 30px;
+    padding: 17px 10px 17px 30px;
     height: 100px;
     width: 100%;
     display: flex;

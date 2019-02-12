@@ -1,17 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-    <link href="../static/css/default.css" rel="stylesheet" type="text/css">
-    <div class = "block" style = "height: 80%; width: 70%；">
-        <div class = "main-info">
-            <a class = "main-topic">{{content.title}}</a>
-        </div>
-        <div class = "info">
-            <a class = "info">于 {{post_time}} 上传{%if post_time != edit_time%}，最后编辑于 {{edit_time}} {%endif%} #{{id}}</a>
-        </div>
+<link href="../static/css/default.css" rel="stylesheet" type="text/css">
+<div class="block" style="height: 80%; width: 70%；">
+    <div class="inner">
+        <a class="main-topic">{{content.title}}</a>
+        <a class="main-info">于 {{content.post_time}} 上传{%if content.post_time != content.edit_time%}，最后编辑于
+            {{content.edit_time}}
+            {%endif%} #{{content.id}}</a>
         <div>
-            <div class = "cont">
-                <div class = "word"> {{content.content|safe}} </div>
-            </div>
+            <div class="main_word"> {{content.content|safe}} </div>
         </div>
     </div>
+</div>
 {% endblock content %}

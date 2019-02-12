@@ -34,7 +34,7 @@
         } else {
             $("#alert").css("opacity", "0")
             $.ajax({
-                url: "http://10.5.3.234/login_handling",
+                url: "http://{{ip}}/login_handling",
                 type: "post",
                 data: c,
                 success: function (ret) {
@@ -82,7 +82,7 @@
         } else {
             $("#alert").css("opacity", "0")
             $.ajax({
-                url: "http://10.5.3.234/register_handling",
+                url: "http://{{ip}}/register_handling",
                 type: "post",
                 data: c,
                 success: function (ret) {
