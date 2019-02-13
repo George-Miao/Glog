@@ -1,6 +1,6 @@
 @font-face {
     font-family: PingFang;
-    src: url("static/font/PingFang-SC-Regular.ttf")
+    src: url("../../static/font/PingFang-SC-Regular.ttf")
 }
 
 html,
@@ -20,7 +20,9 @@ a {
     text-decoration: none;
     display: block;
 }
-
+a:link {
+    color: #777;
+}
 div {
     padding: 0;
     margin: 0;
@@ -35,14 +37,6 @@ input {
     box-sizing: border-box;
     border-radius: 10px;
     outline:none;
-}
-
-pre {
-    font-family: Courier;
-    padding: 20px;
-    background: #eee;
-    border-left: 3px solid #666;
-    margin: 0px
 }
 
 .contraction {
@@ -147,6 +141,27 @@ pre {
 
 .editor::-webkit-scrollbar {
     width: 0%
+}
+/* Trix Editor */
+trix-editor {
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 3px #666 inset;
+    margin: 10px 0;
+    border: none;
+}
+blockquote {
+    margin: 15px 0px!important;
+    padding: 5px 20px;
+    border-left: 3px solid #777;
+    margin: 0px;
+    color: #454545;
+}
+pre {
+    font-family: Courier;
+    padding: 20px;
+    background: #f4f4f4;
+    margin: 0px
 }
 
 #frame {

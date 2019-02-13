@@ -1,0 +1,24 @@
+.main-word ul li,
+.main-word ol li,
+.main-word li li {
+    margin-left: 1em;
+}
+.main-word a:link, .main-word a:visited {
+    color: #878787;
+}
+.main-word a:hover {
+    color: #000;
+}
+.main-word blockquote{
+    margin: 15px 0px!important;
+    padding: 5px 20px;
+    border-left: 3px solid #777;
+    margin: 0px;
+    color: #454545;
+}
+.main-word pre{
+    font-family: Courier;
+    padding: 20px;
+    background: #f4f4f4;
+    margin: 0px
+}

@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
+<link href="../static/photo/favcon.png" rel="shortcut icon" />
 <link href="../static/css/default.css" rel="stylesheet" type="text/css">
+<link href="../static/css/main-word.css" rel="stylesheet" type="text/css">
 <div class="block" style="height: 80%; width: 70%；">
     <div class="inner">
         <a class="main-topic">{{content.title}}</a>
@@ -8,7 +10,7 @@
             {{content.edit_time}}
             {%endif%} #{{content.id}}</a>
         <div>
-            <div class="main_word"> {{content.content|safe}} </div>
+            <div class="main-word"> {{content.content|safe}} </div>
         </div>
     </div>
 </div>

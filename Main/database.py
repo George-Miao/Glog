@@ -147,9 +147,10 @@ class Database(object):
         if block['id'] == "null":
             return "2"
         else:
-            self.cursor.execute(f'''UPDATE block2 SET title = "{block['title']}", 
-                                                content = "{block['content']}", 
-                                                edit_time = "{block['edit_time']}" where id = {int(block['id'][1:])};''')
+            print(block['content'])
+            self.cursor.execute('''UPDATE block2 SET title = %s, 
+                                                content = %s, 
+                                                edit_time = %s where id = %s;''', (block['title'], block['content'], block['edit_time'], int(block['id'][1:])))
             self.db.commit()
             return "1"
         # except:
