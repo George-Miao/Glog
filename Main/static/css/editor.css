@@ -1,14 +1,4 @@
 @font-face {
-    font-family: Montserrat;
-    src: url("static/font/Montserrat-Light.otf");
-}
-
-@font-face {
-    font-family: Montserrat-Light;
-    src: url("static/font/Montserrat-Light.otf")
-}
-
-@font-face {
     font-family: PingFang;
     src: url("static/font/PingFang-SC-Regular.ttf")
 }
@@ -16,7 +6,7 @@
 html,
 body {
     height: 100%;
-    font-family: "Roboto Slab Thin", "PingFang";
+    font-family: futura-pt, "PingFang";
 }
 
 body {
@@ -69,7 +59,7 @@ pre {
 }
 
 .history {
-    padding: 17px 30px;
+    padding: 17px 10px 17px 30px;
     height: 100px;
     width: 100%;
     display: flex;
@@ -77,6 +67,7 @@ pre {
     justify-content: space-between;
     align-items: center;
     transition: 0.6s ease;
+    cursor: pointer;
 }
 
 .history:hover {
@@ -189,6 +180,7 @@ pre {
     justify-content: center;
     color: #777;
     font-size: 24px;
+    transition: ease 0.3s;
 }
 
 #new {
@@ -205,11 +197,12 @@ pre {
     color: #eee;
     font-size: 24px;
     background: linear-gradient(60deg, #1c2e70, #1e4cb5 20%, #3d98f5);
+    cursor: pointer;
 }
 
 #return-home:hover {
-    color: #fff;
-    background: #ddd
+    border: #245bc2 2px solid;
+    color: #245bc2;
 }
 
 #new:hover {
@@ -253,6 +246,7 @@ pre {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    cursor: pointer;
 }
 
 #button a {
@@ -267,6 +261,7 @@ pre {
     color: #888;
     text-align: center;
     box-shadow: 0 0 3px #888;
+    transition: ease 0.3s;
 }
 
 #button a:hover {

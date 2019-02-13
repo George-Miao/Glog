@@ -1,27 +1,16 @@
 @font-face {
-    font-family: Montserrat;
-    src: url("../font/Montserrat.otf");
-}
-
-@font-face {
-    font-family: Montserrat-Light;
-    src: url("../font/Montserrat-ExtraLight.otf")
-}
-
-@font-face {
     font-family: PingFang;
-    src: url("../font/PingFang-SC-Regular.ttf")
+    src: url("static/font/PingFang-SC-Regular.ttf")
 }
 
-@font-face {
-    font-family: gilroy;
-    src: url("../font/Gilroy-Light.otf")
+:root {
+    --font: futura-pt, PingFang, sans-serif;
 }
 
 html,
 body {
     height: 100%;
-    font-family: "gilroy", "PingFang"
+    font-family: var(--font);
     background: #f6f6f6;
 }
 
@@ -64,11 +53,16 @@ span {
     margin: 0px auto 60px;
     width: auto;
     height: auto;
-    box-shadow: 0 0 3px #999;
+    box-shadow: 0 1px 3px rgba(26, 26, 26, 0.3);
     background: #fff;
     border-radius: 5px;
 }
-
+.inner {
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+}
 .nav {
     font-size: 16px;
     padding-left: 20px;
@@ -95,26 +89,18 @@ span {
     margin: 0;
 }
 
-.head {
-    display: flex;
-    justify-content: flex-start;
-    border-bottom: 1px solid #ddd;
-}
-
-.head a {
-    line-height: 60px;
-}
-
 .info {
     flex-grow: 2;
     height: 60px;
     width: auto;
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid #ddd;
 }
 
 .info a {
     margin: auto 20px;
+    line-height: 60px;
 }
 
 .title,
@@ -133,10 +119,6 @@ span {
     color: #666;
 }
 
-.cont {
-    padding: 0 20px 20px 20px;
-}
-
 .topic {
     padding: 10px;
     height: 40px;
@@ -146,11 +128,27 @@ span {
     color: #111;
     font-size: 20px;
     line-height: 40px;
-    font-family: Montserrat-Light;
+    font-family: var(--font);
 }
-
+.main-topic {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 70px;
+    padding: 20px 0 5px 0 ;
+}
+.main-topic {
+    font-size:60px;
+    text-align: center;
+}
+.main-info {
+    font-size: 14px;
+    color: #787878;
+    text-align: center;
+}
 .word {
-    padding: 35px 20px;
+    padding: 25px 30px 35px;
+    font-size: 16px;
 }
 
 .word p {
@@ -160,11 +158,15 @@ span {
 
 .word a {
     color: #275CEC;
-    display: inline
+    display: inline;
+    
 }
 
 .word a:hover:after {
-    content: " 🡥"
+    content: "                                                                                  🡥"
+}
+.main_word {
+    padding: 20px 10px 0 10px;
 }
 
 .i,
@@ -224,7 +226,7 @@ span {
 }
 
 #home {
-    font-family: montserrat;
+    font-family: var(--font);
     line-height: 60px;
     display: block;
     font-size: 50px;
@@ -282,7 +284,7 @@ span {
 }
 
 #copyright_word {
-    font-family: Montserrat-Light;
+    font-family: var(--font);
     font-size: 14px;
     color: #efefef;
     line-height: 60px;

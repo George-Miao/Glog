@@ -21,6 +21,7 @@
     <link href="http://allfont.net/allfont.css?fonts=roboto-slab-thin" rel="stylesheet" type="text/css" />
     <link href="static/css/trix.css?v=19" rel="stylesheet" type="text/css" />
     <link href="static/css/editor.css?v=1" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://use.typekit.net/wnd0asw.css">
     <script src="static/script/trix.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>
     <script>
@@ -35,7 +36,7 @@
                 "content": content,
             }
             $.ajax({
-                url: "http://10.5.3.234/save",
+                url: "http://{{ip}}/save",
                 type: "post",
                 data: c,
                 success: function (ret) {
@@ -50,7 +51,7 @@
         //create
         function create() {
             $.ajax({
-                url: "http://10.5.3.234/create",
+                url: "http://{{ip}}/create",
                 type: "post",
                 data: "",
                 success: function (ret) {
@@ -64,21 +65,24 @@
         //delete
         $(document).ready(function () {
             $(".delete-container").click(function () {
-                var bid = $(this).attr("id")
-                $.ajax({
-                    url: "http://10.5.3.234/delete",
-                    type: "post",
-                    data: {
-                        "id": bid
-                    },
-                    success: function (ret) {
-                        if (ret == "1") {
-                            location.reload()
-                        } else {
-                            alert("Failed")
+                var con = confirm("Really wanna delete?")
+                if(con === true){ 
+                    var bid = $(this).attr("id")
+                    $.ajax({
+                        url: "http://{{ip}}/delete",
+                        type: "post",
+                        data: {
+                            "id": bid
+                        },
+                        success: function (ret) {
+                            if (ret == "1") {
+                                location.reload()
+                            } else {
+                                alert("Failed")
+                            }
                         }
-                    }
-                })
+                    })
+                }
             });
         });
         //fetch
@@ -86,7 +90,7 @@
             $(".word").click(function () {
                 var bid = $(this).attr("id")
                 $.ajax({
-                    url: "http://10.5.3.234/fetch",
+                    url: "http://{{ip}}/fetch",
                     type: "post",
                     data: {
                         "id": bid
@@ -124,7 +128,7 @@
                 </div>
             </div>
             <div class="editor" id="null">
-                <trix-editor></trix-editor>
+                <trix-editor readonly = "readonly"></trix-editor>
             </div>
         </div>
     </div>
