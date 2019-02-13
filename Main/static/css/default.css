@@ -135,9 +135,7 @@ span {
     flex-direction: column;
     justify-content: center;
     height: 70px;
-    padding: 20px 0 5px 0 ;
-}
-.main-topic {
+    padding: 20px 0 10px 0 ;
     font-size:60px;
     text-align: center;
 }
