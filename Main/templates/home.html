@@ -5,15 +5,17 @@
         <div><a class="posttime">于 {{post_time}} 上传{%if post_time != edit_time%}，最后编辑于 {{edit_time}} {%endif%} #{{id}}</a>
         </div>
     </div>
-    <div class="word"> {{content|safe}} </div>
+    <div class = "inner"><div class="word"> {{content|safe}} </div></div>
 </div>
 {% endmacro %}
 
 {% extends "base.html" %}
-{% block content %}
+{% block head %}
 <link rel="shortcut icon" href="static/photo/favcon.png" />
 <link href="static/css/default.css" rel="stylesheet" type="text/css">
 <link href="static/css/main-word.css" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block content %}
 {% for i in range(number) %}
 {{card(**content[i])}}
 {% endfor %}

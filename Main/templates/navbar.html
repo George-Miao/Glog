@@ -6,8 +6,11 @@
             <a href="/register" class="nav">Register / Login</a>
         {% else %}
             <a href="/logout" class="nav">Log out</a>
+            {% if username == "admin" %}
+                <a href="/editor" class="nav">Editor</a>
+            {% endif %}
         {% endif %}
-        <a href="/me" class="nav">About Me</a>
+        <a href="/article/1" class="nav">About Me</a>
         <a href="/" class="nav">Home</a>
     </div>
 </div>

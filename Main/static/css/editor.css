@@ -136,19 +136,25 @@ input {
     border-radius: 10px;
     box-shadow: 0 0 3px #888;
     height: 100%;
-    overflow: scroll;
-}
-
-.editor::-webkit-scrollbar {
-    width: 0%
-}
+    display: flex;
+    flex-direction: column;
+} 
 /* Trix Editor */
 trix-editor {
+    flex-grow: 1;
+    overflow: scroll;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 3px #666 inset;
     margin: 10px 0;
     border: none;
+}
+trix-editor::-webkit-scrollbar {
+    width: 0%
+}
+trix-editor div {
+    margin: 5px 0;
+    line-height: 30px;
 }
 blockquote {
     margin: 15px 0px!important;

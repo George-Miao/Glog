@@ -35,7 +35,7 @@ def register_page():
 def login_handling():
     name, passwd = request.form["username"], request.form["password"]
     response = db.login(name, passwd)
-    if response == "001":
+    if response == "000":
         response = make_response(response)
         response.set_cookie('username', name, max_age=3600)
     return response
