@@ -6,8 +6,7 @@ from .methods import ftime
 from flask import request
 from flask import make_response
 from flask import redirect
-#todo: delete the comment on import and get_content method
-#todo: edit the register page js, add register 002 error code, change login code
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class Database(object):
     def connect(self, address, username, password, block):
@@ -49,11 +48,12 @@ class Database(object):
         try:
             self.cursor.execute("select * from user order by user_id desc limit 1;")
             results = self.cursor.fetchall()
+            if results == ():
+                return 1
             return results[0][0] + 1
         except Exception as e:
             self.db.rollback()
             print(f"<------get_new_user_id Error------>\n{e}\n")
-            return ()
 
 
     def register(self, username, password):
@@ -62,9 +62,10 @@ class Database(object):
                 '''select user_id from user where username = %s limit 1;''', username)
             result = self.cursor.fetchall()
             if result == ():
+                password_hash = generate_password_hash(password)
                 self.cursor.execute(
                     '''insert into user values(%s, %s, %s, %s, %s)''',
-                    (self.get_new_user_id() + 1, username, password, datetime.datetime.now(), datetime.datetime.now()))
+                    (self.get_new_user_id() + 1, username, password_hash, datetime.datetime.now(), datetime.datetime.now()))
                 self.db.commit()
                 return "000"#register success
             else:
@@ -83,7 +84,7 @@ class Database(object):
             if a == ():
                 return("001")#user does not exist
             else:
-                if a[0][1] == password:
+                if check_password_hash(a[0][1], password): 
                     self.cursor.execute('''UPDATE user SET last_login_time = %s where user_id = %s;''', (datetime.datetime.now(), a[0][0]))
                     self.db.commit()
                     return ("000")#login success
@@ -143,7 +144,7 @@ class Database(object):
     def edit(self, block):
         try:
             self.cursor.execute('''UPDATE block2 SET title = %s,content = %s,edit_time= % s where id= % s; ''', 
-                                (block['title'], block['content'], block['edit_time'], block['id'][1:]) )
+                                (block['title'], block['content'], block['edit_time'], block['id']) )
             self.db.commit()
             return "000"#Success
         except Exception as e:

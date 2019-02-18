@@ -3,13 +3,13 @@
 <div class="history">
     <div class="word" id={{id}}>
         <a style="font-size: 12px;">#{{id}}</a>
-        <a class="topic"> {{title}}</a>
+        <a class="topic">{{title}}</a>
         <div class="time">
             <a class="edit-time">Last edit: {{edit_time}}</a>
             <a class="post-time">Post time: {{post_time}}</a>
         </div>
     </div>
-    <div class=delete-container id=a{{id}}><img src="static/photo/close.png" class="delete" /></div>
+    <div class=delete-container id={{id}}><img src="static/photo/close.png" class="delete" /></div>
 </div>
 {% endmacro %}
 <html>
@@ -26,17 +26,11 @@
         //save change
         function save() {
             var title = $("#title").val()
-            var content = $("trix-editor").value
+            var content = document.querySelector("trix-editor").value
             var bid = $(".editor").attr("id")
             if (bid == "null") {
                 var c = confirm("Didn't select any exist block yet, wanna create one?")
                 if (c == true) {
-                    if(title == undefined){
-                        title = "New post"
-                    }
-                    if(content == undefined){
-                        content = ""
-                    }
                     create(title, content)
                 }
             } else {
@@ -65,6 +59,7 @@
                 "title": title,
                 "content": content
             }
+            console.log(c)
             $.ajax({
                 url: "http://{{ip}}/create",
                 type: "post",
@@ -73,9 +68,6 @@
                     if (ret == "000") {
                         alert("Create failed")
                     } else {
-                        $("#title").val("")
-                        $(".editor").attr("id", ret)
-                        document.querySelector("trix-editor").value = ""
                         location.reload()
                     }
                 }
@@ -132,7 +124,7 @@
     <div id=frame>
         <div class="contraction">
             <a id="return-home" href='/'>Back to home</a>
-            <a id="new" onclick="create('New post', '')">New article</a>
+            <a id="new" onclick="create('New post', 'New content')">New article</a>
             <div class="history-container">
                 {% for i in range(number) %}
                 {{nav(**content[i])}}
@@ -147,7 +139,7 @@
                 </div>
             </div>
             <div class="editor" id="null">
-                <trix-editor readonly="readonly"></trix-editor>
+                <trix-editor></trix-editor>
             </div>
         </div>
     </div>

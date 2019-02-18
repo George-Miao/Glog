@@ -25,7 +25,6 @@ def admin_page():
 @bp.route("/save", methods=['GET', 'POST'])
 def save():
     content = request.form.to_dict()
-    print(content)
     content["edit_time"] = datetime.datetime.now()
     return db.edit(content)
     
@@ -34,8 +33,9 @@ def save():
 def new():
     title = request.form["title"]
     content = request.form["content"]
+    if title == "":
+        title = "New post"
     bid = db.create(title, content)
-    print(bid)
     return bid
 
 
