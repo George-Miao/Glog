@@ -26,7 +26,7 @@ def article(block_id):
     content = db.select(block_id)
     title = content["title"]
     if content == "001": 
-        return redirect("/")
+        return redirect("/404")
     elif content == "002":
         return redirect("/500")
     else:

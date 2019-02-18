@@ -1,7 +1,7 @@
 <!doctype html>
 {% macro nav(id, post_time, edit_time, title, content) %}
 <div class="history">
-    <div class="word" id=a{{id}}>
+    <div class="word" id={{id}}>
         <a style="font-size: 12px;">#{{id}}</a>
         <a class="topic"> {{title}}</a>
         <div class="time">
@@ -25,38 +25,59 @@
     <script>
         //save change
         function save() {
-            var bid = $(".editor").attr("id")
             var title = $("#title").val()
-            var content = document.querySelector("trix-editor").value
-            c = {
-                "id": bid,
-                "title": title,
-                "content": content,
-            }
-            $.ajax({
-                url: "http://{{ip}}/save",
-                type: "post",
-                data: c,
-                success: function (ret) {
-                    if (ret == "1") {
-                        alert("Success")
-                    } else {
-                        alert("Failed")
+            var content = $("trix-editor").value
+            var bid = $(".editor").attr("id")
+            if (bid == "null") {
+                var c = confirm("Didn't select any exist block yet, wanna create one?")
+                if (c == true) {
+                    if(title == undefined){
+                        title = "New post"
                     }
+                    if(content == undefined){
+                        content = ""
+                    }
+                    create(title, content)
                 }
-            })
+            } else {
+                c = {
+                    "id": bid,
+                    "title": title,
+                    "content": content,
+                }
+                $.ajax({
+                    url: "http://{{ip}}/save",
+                    type: "post",
+                    data: c,
+                    success: function (ret) {
+                        if (ret == "000") {
+                            alert("Success")
+                        } else if (ret == "001") {
+                            alert("Failed, server error")
+                        }
+                    }
+                })
+            }
         }
         //create
-        function create() {
+        function create(title, content) {
+            c = {
+                "title": title,
+                "content": content
+            }
             $.ajax({
                 url: "http://{{ip}}/create",
                 type: "post",
-                data: "",
+                data: c,
                 success: function (ret) {
-                    $("#title").val("")
-                    $(".editor").attr("id", ret)
-                    document.querySelector("trix-editor").value = ""
-                    location.reload()
+                    if (ret == "000") {
+                        alert("Create failed")
+                    } else {
+                        $("#title").val("")
+                        $(".editor").attr("id", ret)
+                        document.querySelector("trix-editor").value = ""
+                        location.reload()
+                    }
                 }
             })
         };
@@ -111,7 +132,7 @@
     <div id=frame>
         <div class="contraction">
             <a id="return-home" href='/'>Back to home</a>
-            <a id="new" onclick=create()>New article</a>
+            <a id="new" onclick="create('New post', '')">New article</a>
             <div class="history-container">
                 {% for i in range(number) %}
                 {{nav(**content[i])}}

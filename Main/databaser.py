@@ -2,7 +2,7 @@ import pymysql
 import datetime
 import json
 import pprint
-#from .methods import ftime
+from .methods import ftime
 from flask import request
 from flask import make_response
 from flask import redirect
@@ -36,8 +36,8 @@ class Database(object):
                     "id": results[i][0],
                     "title": results[i][1],
                     "content": results[i][2],
-                    #"post_time": ftime(datetime.datetime.now() - results[i][3]),
-                    #"edit_time": ftime(datetime.datetime.now() - results[i][4]),
+                    "post_time": ftime(datetime.datetime.now() - results[i][3]),
+                    "edit_time": ftime(datetime.datetime.now() - results[i][4]),
                 }
             return content
         except Exception as e:
@@ -112,7 +112,7 @@ class Database(object):
             self.cursor.execute("select * from block2 where id = %s;", block_id)
             results = self.cursor.fetchall()
             if results == ():
-                return "001"
+                return "001"#connot find the block
             content = {
                 "id": results[0][0],
                 "title": results[0][1],
@@ -122,7 +122,7 @@ class Database(object):
         except Exception as e:
             self.db.rollback()
             print(f"<------select error------>\n{e}\n")
-            return "002"
+            return "002"#failure, server error
                 
 
     def create(self, title, content):
@@ -133,25 +133,23 @@ class Database(object):
                 (number, title, content, datetime.datetime.now(), datetime.datetime.now())
             )
             self.db.commit()
-            return number
+            return str(number)
         except Exception as e:
             self.db.rollback()
             print(f"<------create error------>\n{e}\n")
+            return "000"
 
 
     def edit(self, block):
         try:
-            if block['id'] == "null":
-                return "001"#Edit failure, block has no id
-            else:
-                self.cursor.execute('''UPDATE block2 SET title = %s,content = %s,edit_time= % s where id= % s; ''', 
-                                    (block['title'], block['content'], block['edit_time'], block['id'][1:]) )
-                self.db.commit()
-                return "000"#Success
+            self.cursor.execute('''UPDATE block2 SET title = %s,content = %s,edit_time= % s where id= % s; ''', 
+                                (block['title'], block['content'], block['edit_time'], block['id'][1:]) )
+            self.db.commit()
+            return "000"#Success
         except Exception as e:
             self.db.rollback()
             print(f"<------edit error------>\n{e}\n")
-            return "002"  #Edit failure, server error
+            return "001"  #Edit failure, server error
     
     
     def delete(self, block_id):
@@ -161,6 +159,9 @@ class Database(object):
         except Exception as e:
             self.db.rollback()
             print(f"<------delete error------>\n{e}\n")
+
+    def disconnect(self):
+        self.cursor.close()
 
 
 

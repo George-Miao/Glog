@@ -55,54 +55,54 @@
                 }
             })
         }
-        function register() {
-            var username = $("#username").val()
-            var password = $("#password").val()
-            var r_password = $("#r_password").val()
-            var c = {
-                "username": username,
-                "password": password
-            }
-            var user_reg = /^[0-9_\u3E00-\u9FA5a-zA-Z]{4,}$/;
-            var passwd_reg = /[0-9a-zA-Z_@#$%^(){}:;<>]/;
-            if (username == "") {
-                $("#alert_word").text("Username is required")
-                $("#alert").css("opacity", "1")
-            } else if (password == "") {
-                $("#alert_word").text("Password is required")
-                $("#alert").css("opacity", "1")
-            } else if (!user_reg.test(username)) {
-                $("#alert_word").text("Username is illegal")
-                $("#alert").css("opacity", "1")
-            } else if (!passwd_reg.test(password)) {
-                $("#alert_word").text("Password is illegal")
-                $("#alert").css("opacity", "1")
-            } else if (password != r_password) {
-                $("#alert_word").text("Repeat password is incorrect")
-                $("#alert").css("opacity", "1")
-            } else {
-                $("#alert").css("opacity", "0")
-                $.ajax({
-                    url: "http://{{ip}}/register_handling",
-                    type: "post",
-                    data: c,
-                    success: function (ret) {
-                        if (ret == "000") {
-                            $("#alert_word").text("Register success! Redirecting to login page...")
-                            $("#alert").css("opacity", "1")
-                            window.setTimeout(function () { location.href = '/login' }, 1000);
-                        } else if (ret == "001") {
-                            $("#alert_word").text("Username is already exist!")
-                            $("#alert").css("opacity", "1")
-                        } else if (ret == "002") {
-                            $("#alert_word").text("Login failed, server error")
-                            $("#alert").css("opacity", "1")
-                        }
-                    }
-                })
-            }
+    }
+    function register() {
+        var username = $("#username").val()
+        var password = $("#password").val()
+        var r_password = $("#r_password").val()
+        var c = {
+            "username": username,
+            "password": password
         }
-
+        var user_reg = /^[0-9_\u3E00-\u9FA5a-zA-Z]{4,}$/;
+        var passwd_reg = /[0-9a-zA-Z_@#$%^(){}:;<>]/;
+        if (username == "") {
+            $("#alert_word").text("Username is required")
+            $("#alert").css("opacity", "1")
+        } else if (password == "") {
+            $("#alert_word").text("Password is required")
+            $("#alert").css("opacity", "1")
+        } else if (!user_reg.test(username)) {
+            $("#alert_word").text("Username is illegal")
+            $("#alert").css("opacity", "1")
+        } else if (!passwd_reg.test(password)) {
+            $("#alert_word").text("Password is illegal")
+            $("#alert").css("opacity", "1")
+        } else if (password != r_password) {
+            $("#alert_word").text("Repeat password is incorrect")
+            $("#alert").css("opacity", "1")
+        } else {
+            $("#alert").css("opacity", "0")
+            $.ajax({
+                url: "http://{{ip}}/register_handling",
+                type: "post",
+                data: c,
+                success: function (ret) {
+                    if (ret == "000") {
+                        $("#alert_word").text("Register success! Redirecting to login page...")
+                        $("#alert").css("opacity", "1")
+                        window.setTimeout(function () { location.href = '/login' }, 1000);
+                    } else if (ret == "001") {
+                        $("#alert_word").text("Username is already exist!")
+                        $("#alert").css("opacity", "1")
+                    } else if (ret == "002") {
+                        $("#alert_word").text("Login failed, server error")
+                        $("#alert").css("opacity", "1")
+                    }
+                }
+            })
+        }
+    }
 </script>
 
 <body>

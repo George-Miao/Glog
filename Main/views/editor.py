@@ -13,11 +13,11 @@ import json
 @bp.route("/editor")
 def admin_page():
     username = check_login_status()
-    if username == "0":
+    if username == "001":
         return redirect("/login?target=editor")
     elif username == "admin":
-        number = db.get_block_id()
-        content = db.generate_content(number)
+        number = db.get_block_amount()
+        content = db.get_content(number)
         return render_template("editor.html", ip = ip, title="Editor", number=number,  content=content)
     else:
         return redirect("/")
@@ -25,21 +25,23 @@ def admin_page():
 @bp.route("/save", methods=['GET', 'POST'])
 def save():
     content = request.form.to_dict()
+    print(content)
     content["edit_time"] = datetime.datetime.now()
-    result = db.edit(content)
-    return result
+    return db.edit(content)
     
 
 @bp.route("/create", methods=['GET', 'POST'])
 def new():
-    bid = db.create("New blog", "")
-    return f"a{bid}"
+    title = request.form["title"]
+    content = request.form["content"]
+    bid = db.create(title, content)
+    print(bid)
+    return bid
 
 
 @bp.route("/fetch", methods=['GET', 'POST'])
 def fetch():
     bid = request.form["id"]
-    bid = int(bid[1:])
     results = db.select(bid)
     return json.dumps(results)
 
