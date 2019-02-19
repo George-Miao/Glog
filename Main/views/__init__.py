@@ -4,7 +4,7 @@ from ..databaser import Database
 from ..methods import get_ip
 
 
-ip = "10.5.3.234"
+ip = get_ip
 bp = Blueprint("bp", __name__,)
 db = Database()
 db.connect("localhost", "root", "George219@", "mydb")#"localhost", "root", "George219@", "mydb"
