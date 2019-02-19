@@ -24,14 +24,17 @@ def me():
 def article(block_id):
     username = check_login_status()
     content = db.select(block_id)
-    title = content["title"]
     if content == "001": 
         return redirect("/404")
     elif content == "002":
         return redirect("/500")
     else:
+        title = content["title"]
         return render_template('article.html', username=username, title=title, content=content)
         
 @bp.route("/archive")
 def archive():
-    pass
+    username = check_login_status()
+    block_number = db.get_block_amount()
+    content = db.get_content(block_number, False)
+    return render_template('archive.html', title="Archive", username=username, number=block_number, content=content)

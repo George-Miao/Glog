@@ -38,7 +38,9 @@ input {
     border-radius: 10px;
     outline:none;
 }
-
+strong {
+    color:#555;
+}
 .contraction {
     display: flex;
     flex-direction: column;

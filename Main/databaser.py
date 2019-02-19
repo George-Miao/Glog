@@ -2,6 +2,7 @@ import pymysql
 import datetime
 import json
 import pprint
+import time
 from .methods import ftime
 from flask import request
 from flask import make_response
@@ -25,19 +26,29 @@ class Database(object):
             print(f"<------get_block_amount error------>\n{e}\n")
 
 
-    def get_content	(self, amount):
+    def get_content	(self, amount, time_format = True):
         try:
             self.cursor.execute("select * from block2 order by id desc limit %s;", amount)
             results = self.cursor.fetchall()
             content = dict()
-            for i in range(amount):
-                content[i] = {
-                    "id": results[i][0],
-                    "title": results[i][1],
-                    "content": results[i][2],
-                    "post_time": ftime(datetime.datetime.now() - results[i][3]),
-                    "edit_time": ftime(datetime.datetime.now() - results[i][4]),
-                }
+            if time_format == True:
+                for i in range(amount):
+                    content[i] = {
+                        "id": results[i][0],
+                        "title": results[i][1],
+                        "content": results[i][2],
+                        "post_time": ftime(datetime.datetime.now() - results[i][3]),
+                        "edit_time": ftime(datetime.datetime.now() - results[i][4]),
+                    }
+            elif time_format == False:
+                for i in range(amount):
+                    content[i] = {
+                        "id": results[i][0],
+                        "title": results[i][1],
+                        "content": results[i][2],
+                        "post_time": results[i][3].strftime("%Y-%m-%d"),
+                        "edit_time": results[i][4].strftime("%Y-%m-%d"),
+                    }
             return content
         except Exception as e:
             print(f'''<------get_content error------>\n{e}\n''')
@@ -46,7 +57,7 @@ class Database(object):
     #User
     def get_new_user_id(self):
         try:
-            self.cursor.execute("select * from user order by user_id desc limit 1;")
+            self.cursor.execute("select user_id from user order by user_id desc limit 1;")
             results = self.cursor.fetchall()
             if results == ():
                 return 1
@@ -65,7 +76,7 @@ class Database(object):
                 password_hash = generate_password_hash(password)
                 self.cursor.execute(
                     '''insert into user values(%s, %s, %s, %s, %s)''',
-                    (self.get_new_user_id() + 1, username, password_hash, datetime.datetime.now(), datetime.datetime.now()))
+                    (self.get_new_user_id(), username, password_hash, datetime.datetime.now(), datetime.datetime.now()))
                 self.db.commit()
                 return "000"#register success
             else:
@@ -117,7 +128,9 @@ class Database(object):
             content = {
                 "id": results[0][0],
                 "title": results[0][1],
-                "content": results[0][2]
+                "content": results[0][2],
+                "post_time": ftime(datetime.datetime.now() - results[0][3]),
+                "edit_time": ftime(datetime.datetime.now() - results[0][4]),
             }
             return content
         except Exception as e:

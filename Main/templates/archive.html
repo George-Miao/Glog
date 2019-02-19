@@ -1,0 +1,28 @@
+{% macro card(id, title, post_time, edit_time, content) %}
+<div class="block" id={{id}}>
+    <div class="info">
+        <div class="topic"><a href="/article/{{id}}">{{title}}</a></div>
+        <div><a class="posttime"> {{post_time}}</a>
+        </div>
+    </div>
+</div>
+{% endmacro %}
+
+{% extends "base.html" %}
+{% block head %}
+<link rel="shortcut icon" href="static/photo/favcon.png" />
+<link href="static/css/default.css" rel="stylesheet" type="text/css">
+<style>
+    .block {
+        margin: 0px auto 20px;
+    }
+    .posttime {
+        font-size: 18px;
+    }
+</style>
+{% endblock %}
+{% block content %}
+{% for i in range(number) %}
+{{card(**content[i])}}
+{% endfor %}
+{% endblock content %}

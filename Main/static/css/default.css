@@ -42,7 +42,12 @@ span {
     margin: 0;
     padding: 20px 0 0;
 }
-
+strong {
+    color:#555;
+}
+blockquote {
+    color:#555;
+}
 .empty {
     position: absolute;
     height: 100%;

@@ -3,16 +3,21 @@
 <head>
 <meta charset="utf-8">
 <title>Woops...{{title}}</title>
+<link rel="stylesheet" href="https://use.typekit.net/wnd0asw.css">
 <style>
     @font-face {
-        font-family:montserrat;
-        src:url("../static/font/Montserrat-ExtraLight.otf");
+    font-family: PingFang;
+    src: url("../../static/font/PingFang-SC-Regular.ttf")
     }
+    :root {
+    --font: futura-pt, PingFang, sans-serif;
+}   
     a {
+        font-weight: 100;
         display: block;
         text-decoration: none;
         color: #efefef;
-        font-family: montserrat;
+        font-family: var(--font);
         text-align: center;
     }
     html, body {
